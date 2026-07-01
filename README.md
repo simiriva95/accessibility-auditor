@@ -15,7 +15,7 @@ L'AI serve solo a spiegare e correggere — **mai** a inventare i numeri.
 ![WCAG 2.2](https://img.shields.io/badge/WCAG-2.2_AAA-ff4a1c?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-16130d?style=for-the-badge)
 
-[**Demo live**](https://accessibility-auditor.vercel.app) · [Segnala un bug](https://github.com/simiriva95/accessibility-auditor/issues) · [Contribuisci](https://github.com/simiriva95/accessibility-auditor/pulls)
+[**Demo live**](https://accessibility-auditor-simiriva95s-projects.vercel.app) · [Segnala un bug](https://github.com/simiriva95/accessibility-auditor/issues) · [Contribuisci](https://github.com/simiriva95/accessibility-auditor/pulls)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/simiriva95/accessibility-auditor)
 
