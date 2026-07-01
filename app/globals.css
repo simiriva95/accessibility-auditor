@@ -2,26 +2,182 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   Brutalist editorial — paper + ink, one accent (vermilion).
+   No gradients, no glass, no AI-purple. Hard edges, block shadows.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #ece7db;
+  --paper-2: #e3ddcd; /* slightly deeper panel */
+  --ink: #16130d;
+  --ink-soft: #4a4639;
+  --line: #16130d;
+  --accent: #ff4a1c; /* vermilion — the single accent */
+
+  --sev-critico: #c4170c;
+  --sev-serio: #b25e00;
+  --sev-moderato: #5f6310;
+  --sev-minore: #155e6b;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+  background-color: var(--paper);
+  /* faint paper grain + hairline column rules for an editorial feel */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+code,
+pre,
+.font-mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* ---------- Brutalist surfaces ---------- */
+@layer components {
+  .block {
+    background: var(--paper);
+    border: 2px solid var(--ink);
+  }
+  .block-shadow {
+    box-shadow: 6px 6px 0 0 var(--ink);
+  }
+  .block-shadow-sm {
+    box-shadow: 4px 4px 0 0 var(--ink);
+  }
+  .ink {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  /* kicker / eyebrow label */
+  .kicker {
+    font-family: var(--font-mono), monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.7rem;
+  }
+}
+
+/* ---------- Motion ---------- */
+.reveal {
+  animation: reveal 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* press feedback for brutalist buttons: shadow collapses, element nudges */
+.press {
+  transition:
+    transform 0.08s ease,
+    box-shadow 0.08s ease;
+}
+.press:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 7px 7px 0 0 var(--ink);
+}
+.press:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 0 var(--ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .press {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* ---------- Focus (a11y, this is an a11y tool) ---------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* No double-tap zoom delay; intentional tap highlight. */
+a,
+button,
+input,
+select,
+textarea,
+[role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper-2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+  border: 3px solid var(--paper-2);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+/* ---------- Print / PDF export ---------- */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+  .block,
+  .block-shadow {
+    box-shadow: none !important;
+    break-inside: avoid;
+  }
+  main {
+    max-width: none !important;
+    padding: 0 !important;
   }
 }
