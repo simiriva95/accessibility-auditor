@@ -318,6 +318,18 @@ export default function Home() {
               Check deterministici completati. AI non disponibile: {aiError}
             </p>
           )}
+          {result.issues.some((i) => i.id.startsWith("js-shell")) && (
+            <p
+              className="border-2 border-ink px-4 py-3 font-mono text-sm font-bold text-paper"
+              style={{ background: "var(--sev-serio)" }}
+              role="status"
+            >
+              ⚠ Pagina renderizzata via JavaScript: l&apos;HTML iniziale è quasi
+              vuoto, quindi questo score NON è rappresentativo del contenuto
+              reale. Serve SSR/prerendering per un audit affidabile (e per una
+              buona indicizzazione).
+            </p>
+          )}
           <ReportSummary result={result} />
           <AuditDashboard result={result} />
           {result.seo && <SeoPanel seo={result.seo} />}
