@@ -46,6 +46,22 @@ export interface AuditResult {
   issues: Issue[];
   htmlBytes: number;
   checkedAt: string; // ISO timestamp, stamped by the route
+  seo?: SeoReport;
+}
+
+export interface SeoFinding {
+  id: string;
+  area: string; // "Title", "Meta description", "Indicizzazione", …
+  gravita: Severity;
+  elemento: string;
+  spiegazione: string;
+  rimedio: string;
+  misura?: string;
+}
+
+export interface SeoReport {
+  score: number; // 0-100
+  issues: SeoFinding[];
 }
 
 export interface AuditResponse {

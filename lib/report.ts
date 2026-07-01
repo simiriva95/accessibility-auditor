@@ -62,7 +62,18 @@ export function toMarkdown(result: AuditResult): string {
     lines.push(`- **${categoryLabel(b.categoria)}**: ${b.score}/100 (${b.issues} problemi)`);
   }
 
-  lines.push(`\n## Problemi`);
+  if (result.seo) {
+    lines.push(`\n## SEO / Indicizzazione — score ${result.seo.score}/100`);
+    if (result.seo.issues.length === 0) {
+      lines.push("- Nessun problema SEO on-page rilevato.");
+    } else {
+      for (const s of result.seo.issues) {
+        lines.push(`- **[${s.gravita.toUpperCase()}] ${s.area}**: ${s.spiegazione} → _${s.rimedio}_`);
+      }
+    }
+  }
+
+  lines.push(`\n## Problemi di accessibilità`);
   const order: Severity[] = ["critico", "serio", "moderato", "minore"];
   const sorted = [...result.issues].sort(
     (a, b) => order.indexOf(a.gravita) - order.indexOf(b.gravita),

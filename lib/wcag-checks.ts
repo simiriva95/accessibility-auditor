@@ -786,6 +786,30 @@ export function wcagChecks(html: string): Issue[] {
     }
   });
 
+  // 27. shell renderizzata via JavaScript — analisi statica non rappresentativa
+  if (isFullDoc) {
+    const bodyText = $("body").text().replace(/\s+/g, " ").trim();
+    const hasRoot = $("#root,#__next,#app,[data-reactroot],[data-server-rendered]").length > 0;
+    const scripts = $("script[src]").length;
+    const contentEls = $("h1,h2,h3,p,img,article,section li").length;
+    if (hasRoot && scripts > 0 && bodyText.length < 600 && contentEls < 8) {
+      issues.push(
+        issue({
+          idPrefix: "js-shell",
+          criterio: "Contenuto renderizzato via JavaScript",
+          livello: "A",
+          gravita: "serio",
+          categoria: "robusto",
+          elemento: `HTML iniziale ~${bodyText.length} caratteri di testo, contenitore app + ${scripts} script`,
+          spiegazione:
+            "La pagina monta il contenuto via JavaScript: l'HTML iniziale è quasi vuoto, quindi questa analisi statica NON è rappresentativa. Molti problemi (e il contenuto stesso) non sono visibili senza eseguire il JS — e lo stesso vale per i crawler che non renderizzano bene: pessimo per l'indicizzazione.",
+          rimedio:
+            "Servi il contenuto nell'HTML iniziale con SSR/SSG o prerendering (es. Next.js server components). Migliora insieme accessibilità, performance e SEO.",
+        }),
+      );
+    }
+  }
+
   return groupRepeated(issues);
 }
 

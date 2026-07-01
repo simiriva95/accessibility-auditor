@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { wcagChecks } from "@/lib/wcag-checks";
+import { seoChecks } from "@/lib/seo-checks";
 import { scoreFromIssues } from "@/lib/scoring";
 import { enrichWithAI, type AiConfig } from "@/lib/ai";
 import { assertPublicHost } from "@/lib/ssrf";
@@ -155,6 +156,7 @@ export async function POST(req: Request) {
     issues,
     htmlBytes: Buffer.byteLength(html),
     checkedAt: new Date().toISOString(),
+    seo: seoChecks(html, url),
   };
 
   return NextResponse.json({ result, aiError } satisfies AuditResponse);

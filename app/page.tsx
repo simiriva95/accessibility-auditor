@@ -6,6 +6,7 @@ import type { AiProvider } from "@/lib/ai";
 import { AuditDashboard } from "@/components/audit-dashboard";
 import { IssueList } from "@/components/issue-list";
 import { ReportSummary } from "@/components/report-summary";
+import { SeoPanel } from "@/components/seo-panel";
 
 const EXAMPLES = [
   "https://www.w3.org",
@@ -319,6 +320,7 @@ export default function Home() {
           )}
           <ReportSummary result={result} />
           <AuditDashboard result={result} />
+          {result.seo && <SeoPanel seo={result.seo} />}
           {result.issues.length > 0 ? (
             <IssueList issues={result.issues} />
           ) : (
