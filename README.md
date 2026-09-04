@@ -16,7 +16,7 @@
   <a href="https://github.com/simiriva95/accessibility-auditor/issues">Report a bug</a>
 </p>
 
-<!-- SCREENSHOT: hero shot of the app — the audit form with a URL entered and the score gauge + issue list below, 1280px wide -->
+<p align="center"><img src="docs/screenshots/hero.png" width="820" alt="hero shot of the app — the audit form with a URL entered and the score gauge + issue list below, 1280px wide"></p>
 
 Most "AI accessibility checkers" ask a language model what the contrast ratio is. A model does not
 see pixels, so it guesses — and the number changes between runs. This tool splits the job: every
@@ -36,7 +36,7 @@ optional and confined to prose and code fixes. If the AI call fails, the audit s
 - **Exportable report** — copy as Markdown, download Markdown or JSON, or print to PDF via a print stylesheet.
 - **The tool is itself accessible** — skip link, semantic landmarks, visible focus styles, `aria-expanded` / `aria-pressed` state on controls.
 
-<!-- SCREENSHOT: an expanded contrast finding in the issue list, showing the measured ratio and the before/after code fix -->
+<p align="center"><img src="docs/screenshots/contrast-finding.png" width="820" alt="an expanded contrast finding in the issue list, showing the measured ratio and the before/after code fix"></p>
 
 ## Tech stack
 
